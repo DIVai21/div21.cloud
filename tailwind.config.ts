@@ -10,7 +10,7 @@ const config: Config = {
     extend: {
       colors: {
         dv21: {
-          background: "06011e",
+          background: "#06011e",
           logo: "#66cd00",
           accent: "#3700FF",
           cyan: "#00FFDD",
