@@ -19,9 +19,9 @@ const config: Config = {
         surface: "#FFFFFF",
       },
       fontFamily: {
-        tomorrow: ["Tomorrow", "sans-serif"],
-        "source-code": ["Source Code Pro", "monospace"],
-        "roboto-flex": ["Roboto Flex", "sans-serif"],
+        tomorrow: ["var(--font-tomorrow)", "sans-serif"],
+        "source-code": ["var(--font-source-code)", "monospace"],
+        "roboto-flex": ["var(--font-roboto-flex)", "sans-serif"],
       },
     },
   },

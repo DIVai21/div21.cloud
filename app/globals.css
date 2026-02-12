@@ -2,46 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --primary: #06011E;
+    --secondary: #0E013C;
+    --accent: #19048D;
+    --highlight: #3700FF;
+    --warning: #00FFDD;
+    --success: #19FF00;
+    --background: #F8F9FA;
+    --surface: #FFFFFF;
+  }
 
-@font-face {
-  font-family: 'Roboto Flex';
-  src: url('/fonts/RobotoFlex-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+  body {
+    @apply bg-background text-primary font-roboto-flex;
+  }
 
-@font-face {
-  font-family: 'Source Code Pro';
-  src: url('/fonts/SourceCodePro-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-tomorrow font-bold;
+  }
 
-@font-face {
-  font-family: 'Tomorrow';
-  src: url('/fonts/Tomorrow-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-:root {
-  --font-primary: 'Roboto Flex', system-ui, sans-serif;
-  --font-mono: 'Source Code Pro', ui-monospace, monospace;
-  --font-tech: 'Tomorrow', system-ui, sans-serif;
-}
-
-body {
-  font-family: var(--font-primary);
-}
-
-h1, h2, h3 {
-  font-family: var(--font-tech);
-  font-weight: 700;
-}
-
-code, pre, .code-block {
-  font-family: var(--font-mono);
+  code, pre {
+    @apply font-source-code;
+  }
 }
