@@ -2,21 +2,26 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./lib/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
-        dv21: {
-          background: "#06011e",
-          logo: "#66cd00",
-          accent: "#3700FF",
-          cyan: "#00FFDD",
-          navy: "#19048D",
-          dark: "#06011E",
-        },
+        primary: "#06011E",
+        secondary: "#0E013C",
+        accent: "#19048D",
+        highlight: "#3700FF",
+        warning: "#00FFDD",
+        success: "#19FF00",
+        background: "#F8F9FA",
+        surface: "#FFFFFF",
+      },
+      fontFamily: {
+        tomorrow: ["Tomorrow", "sans-serif"],
+        "source-code": ["Source Code Pro", "monospace"],
+        "roboto-flex": ["Roboto Flex", "sans-serif"],
       },
     },
   },
