@@ -5,7 +5,7 @@ export default function Logo({ className = "h-8 w-auto" }) {
     <svg
       className={className}
       viewBox="0 0 1366 768"
-      fill="#19FF00"
+      fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
       aria-label="DIV21"
     >
