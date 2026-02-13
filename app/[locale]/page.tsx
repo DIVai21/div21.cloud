@@ -15,14 +15,14 @@ export default function Home({ params: { locale } }: Props) {
   return (
     <main className="min-h-screen flex flex-col bg-primary text-white overflow-x-hidden relative">
       
-      {/* 1. Logo Verde Top-Left 50px */}
+      {/* 1. Logo Verde Top-Left 50px (Responsivo) */}
       <motion.div 
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8 }}
-        className="fixed top-8 left-12 z-50 pointer-events-none" // left-12 es aprox 48px
+        className="fixed top-6 left-6 md:top-8 md:left-12 z-50 pointer-events-none"
       >
-        <Logo className="h-16 text-success" /> 
+        <Logo className="h-10 md:h-16 text-success" /> 
       </motion.div>
 
       {/* Hero Section */}
