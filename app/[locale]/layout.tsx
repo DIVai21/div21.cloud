@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Tomorrow, Roboto_Flex, Source_Code_Pro } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 
 const tomorrow = Tomorrow({
   subsets: ["latin"],
@@ -29,9 +29,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+  params: { locale },
+}: Readonly<{ children: React.ReactNode; params: { locale: string } }>) {
   return (
-    <html lang="es" className={`${tomorrow.variable} ${robotoFlex.variable} ${sourceCodePro.variable}`}>
+    <html lang={locale} className={`${tomorrow.variable} ${robotoFlex.variable} ${sourceCodePro.variable}`}>
       <body className="font-roboto-flex bg-background text-primary antialiased">
         {children}
       </body>
