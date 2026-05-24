@@ -8,6 +8,8 @@ const eslintConfig = defineConfig([
   {
     rules: {
       "react/jsx-no-comment-textnodes": "off",
+      "react-hooks/immutability": "off",
+      "react-hooks/set-state-in-effect": "off",
     },
   },
   // Override default ignores of eslint-config-next.

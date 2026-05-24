@@ -37,7 +37,7 @@ const SOCIAL_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="relative bg-primary border-t border-white/5 overflow-hidden">
+    <footer className="relative border-t border-white/5 overflow-hidden">
       <motion.div
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}

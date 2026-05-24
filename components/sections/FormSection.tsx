@@ -102,30 +102,16 @@ export default function FormSection() {
 
   const formY = useTransform(scrollYProgress, [0, 0.2], [40, 0]);
 
-  // Verificar estado al montar y actualizar contador regresivo
+  // Sincronizar estado con localStorage al montar
   useEffect(() => {
-    checkRateLimit();
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  function checkRateLimit() {
     const data = getAttempts();
     const remaining = getRemainingTime(data);
 
-    if (remaining === null) {
-      // Error inesperado
-      return;
-    }
+    if (remaining === null) return;
 
     if (remaining === 0 && data.timestamps[0] && data.count >= MAX_ATTEMPTS) {
-      // Se cumplieron 24h, reseteamos
-      const reset: AttemptData = { count: 0, timestamps: [] };
-      saveAttempts(reset);
+      saveAttempts({ count: 0, timestamps: [] });
       setAttemptsLeft(MAX_ATTEMPTS);
-      setRemainingTime(null);
       return;
     }
 
@@ -134,15 +120,12 @@ export default function FormSection() {
       setRemainingTime(remaining);
       setAttemptsLeft(Math.max(0, MAX_ATTEMPTS - data.count));
 
-      // Actualizar cada segundo
-      if (timerRef.current) clearInterval(timerRef.current);
       timerRef.current = setInterval(() => {
         const updated = getAttempts();
         const rem = getRemainingTime(updated);
         if (rem && rem > 0) {
           setRemainingTime(rem);
         } else {
-          // Ya paso el tiempo de espera
           if (timerRef.current) clearInterval(timerRef.current);
           setStatus("idle");
           setRemainingTime(null);
@@ -152,7 +135,11 @@ export default function FormSection() {
     } else {
       setAttemptsLeft(Math.max(0, MAX_ATTEMPTS - data.count));
     }
-  }
+
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -172,8 +159,7 @@ export default function FormSection() {
 
     // Si ya se cumplieron 24h, reseteamos
     if (data.timestamps[0] && data.count >= MAX_ATTEMPTS) {
-      const reset: AttemptData = { count: 0, timestamps: [] };
-      saveAttempts(reset);
+      saveAttempts({ count: 0, timestamps: [] });
     }
 
     // 2. Verificar configuracion de EmailJS
@@ -213,7 +199,6 @@ export default function FormSection() {
       // Resetear el estado success a los 5 segundos
       setTimeout(() => {
         setStatus("idle");
-        checkRateLimit();
       }, 5000);
     } catch (err) {
       console.error("EmailJS error:", err);
@@ -226,7 +211,7 @@ export default function FormSection() {
     <section
       id="contacto"
       ref={sectionRef}
-      className="relative py-32 px-6 bg-primary overflow-hidden scroll-mt-20"
+      className="relative py-32 px-6 overflow-hidden scroll-mt-20"
     >
       <motion.div
         initial={{ scaleX: 0 }}

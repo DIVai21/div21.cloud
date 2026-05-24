@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 const TITLE_TEXT = "DIV21 CLOUD";
 const SUBTITLE_TEXT =
-  "Plataforma de innovacion tecnica para Latinoamerica. Infraestructura enterprise en el edge.";
+  "Arquitectura digital de alto rendimiento. Diseñamos y escalamos plataformas de software a nivel empresarial.";
 const CTA_TEXT = "Iniciar despliegue";
 
 function WordReveal({ text }: { text: string }) {
@@ -31,42 +31,6 @@ function WordReveal({ text }: { text: string }) {
   );
 }
 
-function ParallaxOrb({
-  size,
-  color,
-  initialX,
-  initialY,
-  speed,
-}: {
-  size: number;
-  color: string;
-  initialX: number;
-  initialY: number;
-  speed: number;
-}) {
-  const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 1], [0, speed]);
-  const x = useTransform(scrollYProgress, [0, 1], [0, speed * 0.3]);
-
-  return (
-    <motion.div
-      style={{ y, x }}
-      className={`absolute rounded-full blur-[120px] opacity-20 ${color}`}
-      initial={{ left: `${initialX}%`, top: `${initialY}%` }}
-      animate={{
-        left: `${initialX}%`,
-        top: `${initialY}%`,
-      }}
-      transition={{ duration: 0 }}
-    >
-      <div
-        className="rounded-full"
-        style={{ width: size, height: size }}
-      />
-    </motion.div>
-  );
-}
-
 export default function HeroSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -80,13 +44,10 @@ export default function HeroSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-primary"
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
     >
-      {/* Orbes Parallax de fondo */}
-      <ParallaxOrb size={400} color="bg-success" initialX={10} initialY={20} speed={-200} />
-      <ParallaxOrb size={300} color="bg-warning" initialX={75} initialY={10} speed={-150} />
-      <ParallaxOrb size={500} color="bg-accent" initialX={60} initialY={60} speed={-250} />
-      <ParallaxOrb size={250} color="bg-success" initialX={25} initialY={70} speed={-180} />
+      {/* Gradiente de fondo estatico */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-secondary/40 via-primary to-primary pointer-events-none" />
 
       {/* Linea de carga superior */}
       <motion.div
@@ -134,8 +95,11 @@ export default function HeroSection() {
           {SUBTITLE_TEXT}
         </motion.p>
 
-        {/* Boton CTA */}
+        {/* Boton CTA - Scroll suave a servicios */}
         <motion.button
+          onClick={() => {
+            document.getElementById("servicios")?.scrollIntoView({ behavior: "smooth" });
+          }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.0, duration: 0.6 }}
@@ -144,7 +108,7 @@ export default function HeroSection() {
             boxShadow: "0 0 40px rgba(25, 255, 0, 0.3)",
           }}
           whileTap={{ scale: 0.95 }}
-          className="mt-6 px-10 py-4 bg-success/10 border border-success/30 text-success font-source-code text-sm tracking-widest uppercase hover:bg-success/20 transition-all"
+          className="mt-6 px-10 py-4 bg-success/10 border border-success/30 text-success font-source-code text-sm tracking-widest uppercase hover:bg-success/20 transition-all cursor-pointer"
         >
           {'<'} {CTA_TEXT} {'/>'}
         </motion.button>
@@ -171,8 +135,6 @@ export default function HeroSection() {
         </motion.div>
       </motion.div>
 
-      {/* Gradiente de fondo estatico */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-secondary/40 via-primary to-primary pointer-events-none" />
     </section>
   );
 }

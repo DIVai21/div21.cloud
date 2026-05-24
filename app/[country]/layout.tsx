@@ -54,7 +54,9 @@ export default function RootLayout({
       className={`${tomorrow.variable} ${robotoFlex.variable} ${sourceCodePro.variable}`}
     >
       <body className="font-roboto-flex bg-primary text-white antialiased">
-        {children}
+        <main className="relative z-10">
+          {children}
+        </main>
       </body>
     </html>
   );

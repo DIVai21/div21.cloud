@@ -76,7 +76,7 @@ export default function ServicesSection() {
     <section
       id="servicios"
       ref={sectionRef}
-      className="relative py-32 px-6 bg-primary overflow-hidden scroll-mt-20"
+      className="relative py-32 px-6 overflow-hidden scroll-mt-20"
     >
       {/* Linea decorativa superior animada */}
       <motion.div

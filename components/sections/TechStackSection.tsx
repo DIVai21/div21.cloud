@@ -65,7 +65,7 @@ export default function TechStackSection() {
     <section
       id="techstack"
       ref={sectionRef}
-      className="relative py-32 px-6 bg-primary overflow-hidden scroll-mt-20"
+      className="relative py-32 px-6 overflow-hidden scroll-mt-20"
     >
       <motion.div
         initial={{ scaleX: 0 }}
