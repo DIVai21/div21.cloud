@@ -15,7 +15,7 @@
   }
 
   body {
-    @apply bg-background text-primary font-roboto-flex;
+    @apply bg-primary text-white font-roboto-flex antialiased;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -24,5 +24,27 @@
 
   code, pre {
     @apply font-source-code;
+  }
+
+  ::selection {
+    background-color: rgba(25, 255, 0, 0.2);
+    color: #19FF00;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #06011E;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(25, 255, 0, 0.2);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(25, 255, 0, 0.4);
   }
 }

@@ -2,9 +2,9 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { i18n } from './lib/i18n/config'
 
-const activeLocales = ['br', 'bo']; // Países activos fase 1
+const activeLocales = ['bo', 'br']
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
   // 1. Ignorar archivos estáticos y API
@@ -18,7 +18,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  // 2. Comprobar si la ruta ya tiene un locale (ej. /br/...)
+  // 2. Comprobar si la ruta ya tiene un locale
   const pathnameHasLocale = i18n.locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   )
@@ -35,34 +35,27 @@ export function middleware(request: NextRequest) {
 }
 
 function getPreferredLocale(request: NextRequest): string {
-  // A. Cookie de preferencia (si el usuario ya eligió antes)
   const savedLocale = request.cookies.get('div21_locale')?.value
   if (savedLocale && activeLocales.includes(savedLocale)) {
     return savedLocale
   }
 
-  // B. Geolocalización de Vercel (request.geo o header x-vercel-ip-country)
   const country = request.geo?.country || request.headers.get('x-vercel-ip-country')
   if (country === 'BR') return 'br'
   if (country === 'BO') return 'bo'
 
-  // C. Detección por idioma del navegador (Accept-Language)
   const acceptLanguage = request.headers.get('accept-language')
   if (acceptLanguage) {
     const preferredLang = acceptLanguage.split(',')[0].toLowerCase()
     if (preferredLang.startsWith('pt')) return 'br'
     if (preferredLang.startsWith('es-bo')) return 'bo'
-    // Default fallback si detecta español pero no es explícitamente BO, 
-    // podríamos enviarlo a BO por ahora o al default.
   }
 
-  // D. Fallback default del proyecto (br)
   return i18n.defaultLocale
 }
 
 export const config = {
   matcher: [
-    // Coincidir con todas las rutas excepto archivos estáticos
     '/((?!api|_next/static|_next/image|favicon.ico).*)',
   ],
 }

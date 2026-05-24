@@ -23,17 +23,18 @@ const sourceCodePro = Source_Code_Pro({
 });
 
 export const metadata: Metadata = {
-  title: "DIV21.cloud",
-  description: "Plataforma de innovación técnica para Latinoamérica.",
+  title: "Acceso | DIV21.cloud",
+  description: "Panel de administracion DIV21.cloud",
 };
 
-export default function RootLayout({
+export default function LoginLayout({
   children,
-  params: { locale },
-}: Readonly<{ children: React.ReactNode; params: { locale: string } }>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang={locale} className={`${tomorrow.variable} ${robotoFlex.variable} ${sourceCodePro.variable}`}>
-      <body className="font-roboto-flex bg-background text-primary antialiased">
+    <html
+      className={`${tomorrow.variable} ${robotoFlex.variable} ${sourceCodePro.variable}`}
+    >
+      <body className="font-roboto-flex bg-primary text-white antialiased">
         {children}
       </body>
     </html>
