@@ -32,7 +32,7 @@ export function middleware(request: NextRequest) {
     return intlMiddleware(request);
   }
 
-  // 1. Detectar locale preferido por cookie (guardada por LocaleSwitcher)
+  // 1. Detectar locale preferido por cookie
   const savedLocale = request.cookies.get("div21_locale")?.value;
   if (savedLocale && locales.includes(savedLocale as typeof locales[number])) {
     const url = new URL(request.url);

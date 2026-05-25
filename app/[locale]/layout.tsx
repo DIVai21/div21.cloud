@@ -3,11 +3,15 @@ import { getMessages } from "next-intl/server";
 
 export default async function LocaleLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
-  const messages = await getMessages();
+  params: { locale },
+}: Readonly<{
+  children: React.ReactNode;
+  params: { locale: string };
+}>) {
+  const messages = await getMessages({ locale });
 
   return (
-    <NextIntlClientProvider messages={messages}>
+    <NextIntlClientProvider locale={locale} messages={messages}>
       <main className="relative z-10">{children}</main>
     </NextIntlClientProvider>
   );
