@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Tomorrow, Roboto_Flex, Source_Code_Pro } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 import "../globals.css";
 
 const tomorrow = Tomorrow({
@@ -23,40 +25,41 @@ const sourceCodePro = Source_Code_Pro({
 });
 
 export const metadata: Metadata = {
-  title: "DIV21.cloud - Plataforma de Innovacion Tecnica",
+  title: "DIV21.cloud - Plataforma de Innovación Técnica",
   description:
-    "Infraestructura enterprise en el edge para Latinoamerica. Despliegue de aplicaciones, seguridad enterprise y cloud hibrido.",
+    "Infraestructura enterprise en el edge para Latinoamérica. Despliegue de aplicaciones, seguridad enterprise y cloud híbrido.",
   keywords: [
     "DIV21",
     "cloud",
     "infraestructura",
     "edge",
-    "Latinoamerica",
+    "Latinoamérica",
     "Bolivia",
     "Brasil",
   ],
   openGraph: {
     title: "DIV21.cloud",
     description:
-      "Plataforma de innovacion tecnica para Latinoamerica. Infraestructura enterprise en el edge.",
+      "Plataforma de innovación técnica para Latinoamérica. Infraestructura enterprise en el edge.",
     type: "website",
     locale: "es_BO",
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-  params: { country },
-}: Readonly<{ children: React.ReactNode; params: { country: string } }>) {
+}: Readonly<{ children: React.ReactNode }>) {
+  const messages = await getMessages();
+
   return (
     <html
-      lang={country === "br" ? "pt-BR" : "es-BO"}
+      lang="es"
       className={`${tomorrow.variable} ${robotoFlex.variable} ${sourceCodePro.variable}`}
     >
       <body className="font-roboto-flex bg-primary text-white antialiased">
-        <main className="relative z-10">
-          {children}
-        </main>
+        <NextIntlClientProvider messages={messages}>
+          <main className="relative z-10">{children}</main>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

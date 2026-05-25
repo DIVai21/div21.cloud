@@ -10,47 +10,13 @@ import {
   ShieldCheck,
   FlowArrow,
 } from "@phosphor-icons/react";
+import { useTranslations } from "next-intl";
 
-const TECH_ITEMS = [
-  {
-    icon: Palette,
-    label: "Frontend",
-    desc: "React · Next.js · TailwindCSS · TypeScript",
-    color: "#00FFDD",
-  },
-  {
-    icon: CodesandboxLogo,
-    label: "Backend",
-    desc: "Node.js · API REST · Edge Functions",
-    color: "#19FF00",
-  },
-  {
-    icon: Database,
-    label: "Base de Datos",
-    desc: "PostgreSQL · Supabase · Redis Cache",
-    color: "#3700FF",
-  },
-  {
-    icon: Globe,
-    label: "Despliegue",
-    desc: "Vercel Edge · CI/CD · 100+ regions",
-    color: "#19FF00",
-  },
-  {
-    icon: ShieldCheck,
-    label: "Seguridad",
-    desc: "RLS · Cifrado TLS · Auth integrado",
-    color: "#00FFDD",
-  },
-  {
-    icon: FlowArrow,
-    label: "Arquitectura",
-    desc: "Microservicios · Event-driven · Serverless",
-    color: "#3700FF",
-  },
-];
+const ICONS = [Palette, CodesandboxLogo, Database, Globe, ShieldCheck, FlowArrow];
+const COLORS = ["#00FFDD", "#19FF00", "#3700FF", "#19FF00", "#00FFDD", "#3700FF"];
 
 export default function TechStackSection() {
+  const t = useTranslations("tech");
   const sectionRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -60,6 +26,8 @@ export default function TechStackSection() {
 
   const titleOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
   const titleY = useTransform(scrollYProgress, [0, 0.15], [30, 0]);
+
+  const techItems = t.raw("items") as Array<{ label: string; desc: string }>;
 
   return (
     <section
@@ -81,20 +49,20 @@ export default function TechStackSection() {
           className="text-center mb-20"
         >
           <span className="font-source-code text-xs tracking-[0.3em] text-warning/60 uppercase">
-            {'<'} Tech Stack {'/>'}
+            {'<'} {t("tag")} {'/>'}
           </span>
           <h2 className="mt-4 text-3xl md:text-5xl font-tomorrow font-bold text-white tracking-tight">
-            Stack <span className="text-warning">tecnologico</span>
+            {t("title")} <span className="text-warning">{t("titleHighlight")}</span>
           </h2>
           <p className="mt-4 text-gray-400 font-roboto-flex max-w-xl mx-auto">
-            Tecnologias modernas para construir plataformas enterprise-ready
-            con rendimiento en el Edge.
+            {t("description")}
           </p>
         </motion.div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-          {TECH_ITEMS.map((item, index) => {
-            const Icon = item.icon;
+          {techItems.map((item, index) => {
+            const Icon = ICONS[index];
+            const color = COLORS[index];
             return (
               <motion.div
                 key={index}
@@ -108,8 +76,8 @@ export default function TechStackSection() {
                 }}
                 whileHover={{
                   y: -8,
-                  borderColor: item.color,
-                  boxShadow: `0 0 30px ${item.color}15`,
+                  borderColor: color,
+                  boxShadow: `0 0 30px ${color}15`,
                 }}
                 className="group p-8 border border-white/10 bg-white/5 backdrop-blur-md hover:bg-white/[0.08] transition-all duration-300"
               >
@@ -118,18 +86,18 @@ export default function TechStackSection() {
                   <div className="relative">
                     <div
                       className="absolute inset-0 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                      style={{ backgroundColor: `${item.color}20` }}
+                      style={{ backgroundColor: `${color}20` }}
                     />
                     <div
                       className="relative w-14 h-14 flex items-center justify-center border transition-colors"
                       style={{
-                        borderColor: `${item.color}30`,
-                        backgroundColor: `${item.color}08`,
+                        borderColor: `${color}30`,
+                        backgroundColor: `${color}08`,
                       }}
                     >
                       <Icon
                         className="w-7 h-7 transition-colors"
-                        style={{ color: item.color }}
+                        style={{ color }}
                         weight="duotone"
                       />
                     </div>
@@ -153,7 +121,7 @@ export default function TechStackSection() {
                     transition={{ duration: 0.6, delay: 0.2 }}
                     className="w-6 h-[1px] origin-center"
                     style={{
-                      backgroundColor: `${item.color}30`,
+                      backgroundColor: `${color}30`,
                     }}
                   />
                 </div>

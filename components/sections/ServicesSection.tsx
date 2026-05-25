@@ -8,33 +8,9 @@ import {
   Network,
   Cloud,
 } from "@phosphor-icons/react";
+import { useTranslations } from "next-intl";
 
-const SERVICES = [
-  {
-    icon: Cpu,
-    title: "Infraestructura Edge",
-    description:
-      "Despliegue de aplicaciones en el edge de Vercel con mas de 100 regiones globales. Latencia minima y alta disponibilidad para tus servicios.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Seguridad Enterprise",
-    description:
-      "Autenticacion integrada con Supabase, cifrado TLS extremo a extremo y politicas de acceso basadas en roles para proteger tus datos.",
-  },
-  {
-    icon: Network,
-    title: "Red Distribuida",
-    description:
-      "Arquitectura de microservicios con balanceo de carga automatico. Escalabilidad horizontal para manejar picos de trafico sin interrupciones.",
-  },
-  {
-    icon: Cloud,
-    title: "Cloud Hibrido",
-    description:
-      "Integracion con multiples proveedores cloud. Base de datos PostgreSQL gestionada con replicacion en tiempo real y backups automatizados.",
-  },
-];
+const ICONS = [Cpu, ShieldCheck, Network, Cloud];
 
 const containerVariants = {
   hidden: {},
@@ -63,6 +39,7 @@ const cardVariants = {
 };
 
 export default function ServicesSection() {
+  const t = useTranslations("services");
   const sectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -71,6 +48,8 @@ export default function ServicesSection() {
 
   const titleY = useTransform(scrollYProgress, [0, 0.3], [60, 0]);
   const titleOpacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
+
+  const services = t.raw("items") as Array<{ title: string; description: string }>;
 
   return (
     <section
@@ -94,14 +73,14 @@ export default function ServicesSection() {
           className="text-center mb-20"
         >
           <span className="font-source-code text-xs tracking-[0.3em] text-success/60 uppercase">
-            {'<'} Servicios {'/>'}
+            {'<'} {t("tag")} {'/>'}
           </span>
           <h2 className="mt-4 text-3xl md:text-5xl font-tomorrow font-bold text-white tracking-tight">
-            Soluciones de{" "}
-            <span className="text-success">alta disponibilidad</span>
+            {t("title")}{" "}
+            <span className="text-success">{t("titleHighlight")}</span>
           </h2>
           <p className="mt-4 text-gray-400 font-roboto-flex max-w-xl mx-auto">
-            Infraestructura enterprise diseñada para escalar con tu negocio.
+            {t("description")}
           </p>
         </motion.div>
 
@@ -113,8 +92,8 @@ export default function ServicesSection() {
           viewport={{ once: true, margin: "-100px" }}
           className="grid grid-cols-1 md:grid-cols-2 gap-6"
         >
-          {SERVICES.map((service, index) => {
-            const Icon = service.icon;
+          {services.map((service, index) => {
+            const Icon = ICONS[index];
             return (
               <motion.div
                 key={index}

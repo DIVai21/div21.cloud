@@ -1,0 +1,102 @@
+{
+  "header": {
+    "nav": {
+      "services": "Servicios",
+      "tech": "Stack",
+      "contact": "Contacto"
+    }
+  },
+  "hero": {
+    "tag": "Sistema",
+    "title": "DIV21 CLOUD",
+    "subtitle": "Arquitectura digital de alto rendimiento. Diseñamos y escalamos plataformas de software a nivel empresarial.",
+    "cta": "Iniciar despliegue",
+    "scroll": "Scroll"
+  },
+  "services": {
+    "tag": "Servicios",
+    "title": "Soluciones de",
+    "titleHighlight": "alta disponibilidad",
+    "description": "Infraestructura enterprise diseñada para escalar con tu negocio.",
+    "items": [
+      {
+        "title": "Infraestructura Edge",
+        "description": "Despliegue de aplicaciones en el edge de Vercel con más de 100 regiones globales. Latencia mínima y alta disponibilidad para tus servicios."
+      },
+      {
+        "title": "Seguridad Enterprise",
+        "description": "Autenticación integrada con Supabase, cifrado TLS extremo a extremo y políticas de acceso basadas en roles para proteger tus datos."
+      },
+      {
+        "title": "Red Distribuida",
+        "description": "Arquitectura de microservicios con balanceo de carga automático. Escalabilidad horizontal para manejar picos de tráfico sin interrupciones."
+      },
+      {
+        "title": "Cloud Híbrido",
+        "description": "Integración con múltiples proveedores cloud. Base de datos PostgreSQL gestionada con replicación en tiempo real y backups automatizados."
+      }
+    ]
+  },
+  "tech": {
+    "tag": "Tech Stack",
+    "title": "Stack",
+    "titleHighlight": "tecnológico",
+    "description": "Tecnologías modernas para construir plataformas enterprise-ready con rendimiento en el Edge.",
+    "items": [
+      { "label": "Frontend", "desc": "React · Next.js · TailwindCSS · TypeScript" },
+      { "label": "Backend", "desc": "Node.js · API REST · Edge Functions" },
+      { "label": "Base de Datos", "desc": "PostgreSQL · Supabase · Redis Cache" },
+      { "label": "Despliegue", "desc": "Vercel Edge · CI/CD · 100+ regions" },
+      { "label": "Seguridad", "desc": "RLS · Cifrado TLS · Auth integrado" },
+      { "label": "Arquitectura", "desc": "Microservicios · Event-driven · Serverless" }
+    ]
+  },
+  "form": {
+    "tag": "Contacto",
+    "title": "Inicia tu",
+    "titleHighlight": "despliegue",
+    "leftTitle": "Trabajemos juntos",
+    "leftDescription": "Completa el formulario y nuestro equipo te contactará para coordinar los detalles de tu proyecto.",
+    "emailLabel": "Email",
+    "locationLabel": "Ubicación",
+    "locationValue": "Santa Cruz, Bolivia",
+    "nameLabel": "Nombre completo",
+    "namePlaceholder": "Ingrese su nombre",
+    "emailFieldLabel": "Email corporativo",
+    "emailPlaceholder": "usuario@empresa.com",
+    "messageLabel": "Mensaje",
+    "messagePlaceholder": "Describa su proyecto",
+    "rateLimitedTitle": "Límite de mensajes alcanzado",
+    "rateLimitedMessage": "Has alcanzado el límite de {max} mensajes por hoy. Intenta de nuevo en {time}.",
+    "rateLimitedWait": "Espera {time} antes de enviar otro mensaje. Te quedan {attempts} intento(s).",
+    "successMessage": "Mensaje enviado con éxito. Te contactaremos pronto.",
+    "successAttempts": "Te quedan {attempts} intento(s) disponible(s).",
+    "errorConfig": "EmailJS no configurado. Agrega las variables en .env.local",
+    "errorSend": "Error al enviar el mensaje. Intenta de nuevo.",
+    "buttonSending": "Enviando",
+    "buttonBlocked": "Bloqueado temporalmente",
+    "buttonSend": "Enviar solicitud"
+  },
+  "footer": {
+    "description": "Plataforma de innovación técnica para Latinoamérica. Infraestructura enterprise en el edge.",
+    "groups": [
+      {
+        "title": "Plataforma",
+        "links": [
+          { "label": "Servicios", "href": "#servicios" },
+          { "label": "Stack Tecnológico", "href": "#techstack" },
+          { "label": "Contacto", "href": "#contacto" }
+        ]
+      },
+      {
+        "title": "Legal",
+        "links": [
+          { "label": "Términos y Condiciones", "href": "#" },
+          { "label": "Política de Privacidad", "href": "#" },
+          { "label": "Cookies", "href": "#" }
+        ]
+      }
+    ],
+    "copyright": "DIV21.cloud &copy; {year}"
+  }
+}

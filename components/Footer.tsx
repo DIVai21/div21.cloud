@@ -8,25 +8,7 @@ import {
   Envelope,
 } from "@phosphor-icons/react";
 import Logo from "@/components/Logo";
-
-const FOOTER_LINKS = [
-  {
-    title: "Plataforma",
-    links: [
-      { label: "Servicios", href: "#servicios" },
-      { label: "Stack Tecnologico", href: "#techstack" },
-      { label: "Contacto", href: "#contacto" },
-    ],
-  },
-  {
-    title: "Legal",
-    links: [
-      { label: "Terminos y Condiciones", href: "#" },
-      { label: "Politica de Privacidad", href: "#" },
-      { label: "Cookies", href: "#" },
-    ],
-  },
-];
+import { useTranslations } from "next-intl";
 
 const SOCIAL_LINKS = [
   { icon: GithubLogo, href: "#", label: "GitHub" },
@@ -36,6 +18,13 @@ const SOCIAL_LINKS = [
 ];
 
 export default function Footer() {
+  const t = useTranslations("footer");
+
+  const footerGroups = t.raw("groups") as Array<{
+    title: string;
+    links: Array<{ label: string; href: string }>;
+  }>;
+
   return (
     <footer className="relative border-t border-white/5 overflow-hidden">
       <motion.div
@@ -62,8 +51,7 @@ export default function Footer() {
               </span>
             </motion.div>
             <p className="font-roboto-flex text-sm text-gray-500 leading-relaxed">
-              Plataforma de innovacion tecnica para Latinoamerica.
-              Infraestructura enterprise en el edge.
+              {t("description")}
             </p>
 
             {/* Redes sociales */}
@@ -87,7 +75,7 @@ export default function Footer() {
           </div>
 
           {/* Columnas de links */}
-          {FOOTER_LINKS.map((group) => (
+          {footerGroups.map((group) => (
             <div key={group.title}>
               <motion.h4
                 initial={{ opacity: 0, y: 20 }}
@@ -127,7 +115,7 @@ export default function Footer() {
           className="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4"
         >
           <span className="font-source-code text-[10px] tracking-[0.2em] text-gray-600 uppercase">
-            {'<'} DIV21.cloud &copy; {new Date().getFullYear()} {'/>'}
+            {'<'} {t("copyright", { year: new Date().getFullYear() })} {'/>'}
           </span>
         </motion.div>
       </div>

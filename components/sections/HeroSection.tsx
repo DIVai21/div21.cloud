@@ -2,11 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-
-const TITLE_TEXT = "DIV21 CLOUD";
-const SUBTITLE_TEXT =
-  "Arquitectura digital de alto rendimiento. Diseñamos y escalamos plataformas de software a nivel empresarial.";
-const CTA_TEXT = "Iniciar despliegue";
+import { useTranslations } from "next-intl";
 
 function WordReveal({ text }: { text: string }) {
   const words = text.split(" ");
@@ -32,6 +28,7 @@ function WordReveal({ text }: { text: string }) {
 }
 
 export default function HeroSection() {
+  const t = useTranslations("hero");
   const sectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -69,12 +66,12 @@ export default function HeroSection() {
           transition={{ delay: 0.2, duration: 0.6 }}
           className="font-source-code text-xs tracking-[0.3em] text-success/60 uppercase"
         >
-          {'<'} Sistema {'/>'}
+          {'<'} {t("tag")} {'/>'}
         </motion.span>
 
         {/* Titulo con animacion palabra por palabra */}
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-tomorrow font-bold tracking-tight leading-tight text-white">
-          <WordReveal text={TITLE_TEXT} />
+          <WordReveal text={t("title")} />
         </h1>
 
         {/* Linea divisoria animada */}
@@ -92,7 +89,7 @@ export default function HeroSection() {
           transition={{ delay: 0.8, duration: 0.8 }}
           className="text-base md:text-lg lg:text-xl text-gray-400 max-w-2xl font-roboto-flex leading-relaxed"
         >
-          {SUBTITLE_TEXT}
+          {t("subtitle")}
         </motion.p>
 
         {/* Boton CTA - Scroll suave a servicios */}
@@ -110,7 +107,7 @@ export default function HeroSection() {
           whileTap={{ scale: 0.95 }}
           className="mt-6 px-10 py-4 bg-success/10 border border-success/30 text-success font-source-code text-sm tracking-widest uppercase hover:bg-success/20 transition-all cursor-pointer"
         >
-          {'<'} {CTA_TEXT} {'/>'}
+          {'<'} {t("cta")} {'/>'}
         </motion.button>
 
         {/* Badge de scroll */}
@@ -125,7 +122,7 @@ export default function HeroSection() {
             transition={{ repeat: Infinity, duration: 2 }}
             className="font-source-code text-[10px] tracking-[0.2em] text-gray-500 uppercase"
           >
-            Scroll
+            {t("scroll")}
           </motion.span>
           <motion.div
             animate={{ y: [0, 8, 0] }}

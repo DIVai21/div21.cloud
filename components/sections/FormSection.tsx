@@ -8,6 +8,7 @@ import {
   EMAILJS_CONFIG,
   isEmailJSConfigured,
 } from "@/lib/emailjs/config";
+import { useTranslations } from "next-intl";
 
 // ============================================================
 // Rate Limiting - Control de envios del formulario
@@ -86,6 +87,7 @@ function formatTime(ms: number): string {
 type FormStatus = "idle" | "loading" | "success" | "error" | "rate-limited";
 
 export default function FormSection() {
+  const t = useTranslations("form");
   const sectionRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -165,9 +167,7 @@ export default function FormSection() {
     // 2. Verificar configuracion de EmailJS
     if (!isEmailJSConfigured()) {
       setStatus("error");
-      setErrorMsg(
-        "EmailJS no configurado. Agrega las variables en .env.local"
-      );
+      setErrorMsg(t("errorConfig"));
       return;
     }
 
@@ -203,7 +203,7 @@ export default function FormSection() {
     } catch (err) {
       console.error("EmailJS error:", err);
       setStatus("error");
-      setErrorMsg("Error al enviar el mensaje. Intenta de nuevo.");
+      setErrorMsg(t("errorSend"));
     }
   };
 
@@ -226,16 +226,15 @@ export default function FormSection() {
           {/* Columna izquierda - Informacion */}
           <div className="hidden lg:flex flex-col justify-center shrink-0 max-w-xs">
             <h3 className="font-tomorrow text-2xl font-bold text-white mb-4">
-              Trabajemos juntos
+              {t("leftTitle")}
             </h3>
             <p className="font-roboto-flex text-sm text-gray-400 leading-relaxed">
-              Completa el formulario y nuestro equipo te contactara
-              para coordinar los detalles de tu proyecto.
+              {t("leftDescription")}
             </p>
             <div className="mt-8 space-y-4">
               {[
-                { label: "Email", value: "inbox.div21@gmail.com" },
-                { label: "Ubicacion", value: "Santa Cruz, Bolivia" },
+                { label: t("emailLabel"), value: "inbox.div21@gmail.com" },
+                { label: t("locationLabel"), value: t("locationValue") },
               ].map((item) => (
                 <div key={item.label}>
                   <span className="font-source-code text-[10px] tracking-[0.2em] text-success/60 uppercase">
@@ -253,10 +252,10 @@ export default function FormSection() {
           <motion.div style={{ y: formY }} className="flex-1 max-w-xl">
             <div className="mb-10">
               <span className="font-source-code text-xs tracking-[0.3em] text-success/60 uppercase">
-                {'<'} Contacto {'/>'}
+                {'<'} {t("tag")} {'/>'}
               </span>
               <h2 className="mt-4 text-3xl md:text-5xl font-tomorrow font-bold text-white tracking-tight">
-                Inicia tu <span className="text-success">despliegue</span>
+                {t("title")} <span className="text-success">{t("titleHighlight")}</span>
               </h2>
             </div>
 
@@ -264,12 +263,12 @@ export default function FormSection() {
               {/* Nombre */}
               <div>
                 <label className="block font-source-code text-xs tracking-wider text-gray-300 mb-2 uppercase">
-                  {'<'} Nombre completo {'/>'}
+                  {'<'} {t("nameLabel")} {'/>'}
                 </label>
                 <input
                   type="text"
                   name="from_name"
-                  placeholder="Ingrese su nombre"
+                  placeholder={t("namePlaceholder")}
                   required
                   disabled={status === "rate-limited"}
                   className="w-full h-12 bg-white/5 border border-white/10 px-4 text-white font-roboto-flex text-sm placeholder:text-gray-600 focus:outline-none focus:border-success focus:ring-2 focus:ring-success/30 transition-all disabled:opacity-30"
@@ -279,12 +278,12 @@ export default function FormSection() {
               {/* Email */}
               <div>
                 <label className="block font-source-code text-xs tracking-wider text-gray-300 mb-2 uppercase">
-                  {'<'} Email corporativo {'/>'}
+                  {'<'} {t("emailFieldLabel")} {'/>'}
                 </label>
                 <input
                   type="email"
                   name="from_email"
-                  placeholder="usuario@empresa.com"
+                  placeholder={t("emailPlaceholder")}
                   required
                   disabled={status === "rate-limited"}
                   className="w-full h-12 bg-white/5 border border-white/10 px-4 text-white font-roboto-flex text-sm placeholder:text-gray-600 focus:outline-none focus:border-success focus:ring-2 focus:ring-success/30 transition-all disabled:opacity-30"
@@ -294,12 +293,12 @@ export default function FormSection() {
               {/* Mensaje */}
               <div>
                 <label className="block font-source-code text-xs tracking-wider text-gray-300 mb-2 uppercase">
-                  {'<'} Mensaje {'/>'}
+                  {'<'} {t("messageLabel")} {'/>'}
                 </label>
                 <textarea
                   name="message"
                   rows={4}
-                  placeholder="Describa su proyecto"
+                  placeholder={t("messagePlaceholder")}
                   required
                   disabled={status === "rate-limited"}
                   className="w-full bg-white/5 border border-white/10 px-4 py-3 text-white font-roboto-flex text-sm placeholder:text-gray-600 focus:outline-none focus:border-success focus:ring-2 focus:ring-success/30 transition-all resize-none disabled:opacity-30"
@@ -314,12 +313,12 @@ export default function FormSection() {
                   className="p-4 border border-warning/30 bg-warning/10"
                 >
                   <span className="font-source-code text-xs tracking-wider text-warning uppercase">
-                    {'<'} Limite de mensajes alcanzado {'/>'}
+                    {'<'} {t("rateLimitedTitle")} {'/>'}
                   </span>
                   <p className="font-roboto-flex text-sm text-gray-300 mt-2">
                     {attemptsLeft <= 0
-                      ? `Has alcanzado el limite de ${MAX_ATTEMPTS} mensajes por hoy. Intenta de nuevo en ${formatTime(remainingTime)}.`
-                      : `Espera ${formatTime(remainingTime)} antes de enviar otro mensaje. Te quedan ${attemptsLeft} intento(s).`}
+                      ? t("rateLimitedMessage", { max: MAX_ATTEMPTS, time: formatTime(remainingTime) })
+                      : t("rateLimitedWait", { time: formatTime(remainingTime), attempts: attemptsLeft })}
                   </p>
                 </motion.div>
               )}
@@ -332,11 +331,11 @@ export default function FormSection() {
                   className="p-4 border border-success/30 bg-success/10"
                 >
                   <span className="font-source-code text-xs tracking-wider text-success uppercase">
-                    {'<'} Mensaje enviado con exito. Te contactaremos pronto. {'/>'}
+                    {'<'} {t("successMessage")} {'/>'}
                   </span>
                   {attemptsLeft > 0 && (
                     <p className="font-roboto-flex text-xs text-gray-400 mt-2">
-                      Te quedan {attemptsLeft} intento(s) disponible(s).
+                      {t("successAttempts", { attempts: attemptsLeft })}
                     </p>
                   )}
                 </motion.div>
@@ -369,17 +368,17 @@ export default function FormSection() {
                 {status === "loading" ? (
                   <>
                     <span className="w-4 h-4 border-2 border-success border-t-transparent rounded-full animate-spin" />
-                    {'<'} Enviando {'/>'}
+                    {'<'} {t("buttonSending")} {'/>'}
                   </>
                 ) : status === "rate-limited" ? (
                   <>
                     <PaperPlaneRight className="w-5 h-5" weight="duotone" />
-                    {'<'} Bloqueado temporalmente {'/>'}
+                    {'<'} {t("buttonBlocked")} {'/>'}
                   </>
                 ) : (
                   <>
                     <PaperPlaneRight className="w-5 h-5" weight="duotone" />
-                    {'<'} Enviar solicitud {'/>'}
+                    {'<'} {t("buttonSend")} {'/>'}
                   </>
                 )}
               </motion.button>

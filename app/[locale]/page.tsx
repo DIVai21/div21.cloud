@@ -1,7 +1,5 @@
 "use client";
 
-import { br } from "@/lib/i18n/dictionaries/br";
-import { bo } from "@/lib/i18n/dictionaries/bo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -11,13 +9,7 @@ import ServicesSection from "@/components/sections/ServicesSection";
 import TechStackSection from "@/components/sections/TechStackSection";
 import FormSection from "@/components/sections/FormSection";
 
-type Props = {
-  params: { country: string };
-};
-
-export default function Home({ params: { country } }: Props) {
-  const dict = country === "br" ? br : bo;
-
+export default function Home() {
   return (
     <>
       <ParallaxBackground />

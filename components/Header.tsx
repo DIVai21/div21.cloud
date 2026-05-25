@@ -3,12 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Logo from "@/components/Logo";
-
-const NAV_ITEMS = [
-  { label: "Servicios", href: "#servicios" },
-  { label: "Stack", href: "#techstack" },
-  { label: "Contacto", href: "#contacto" },
-];
+import { useTranslations } from "next-intl";
 
 function scrollToSection(href: string) {
   const id = href.replace("#", "");
@@ -19,6 +14,14 @@ function scrollToSection(href: string) {
 }
 
 export default function Header() {
+  const t = useTranslations("header");
+
+  const NAV_ITEMS = [
+    { label: t("nav.services"), href: "#servicios" },
+    { label: t("nav.tech"), href: "#techstack" },
+    { label: t("nav.contact"), href: "#contacto" },
+  ];
+
   return (
     <motion.header
       initial={{ y: -20, opacity: 0 }}
